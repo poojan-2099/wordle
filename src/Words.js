@@ -1,3 +1,5 @@
+import wordBank from "./valid-wordle-words.txt"
+
 export const boardDefault = [
     ["", "", "", "", ""],
     ["", "", "", "", ""],
@@ -7,6 +9,14 @@ export const boardDefault = [
     ["", "", "", "", ""],
 ];
 
-const generateWordSet = ()=>{
-    const newSet =new Set()
+export const generateWordSet = async ()=>{
+    let wordSet;
+    await fetch(wordBank)
+        .then((response)=>response.text())
+        .then((result)=>{
+            const wordArr=result.split("\n")
+            wordSet= new Set(wordArr);
+        });
+
+        return { wordSet }
 }
